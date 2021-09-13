@@ -138,11 +138,9 @@ namespace EF_DoctorWho.Db.Migrations
 
                     b.HasKey("tblEpisodeID");
 
-                    b.HasIndex("tblAuthorID")
-                        .IsUnique();
+                    b.HasIndex("tblAuthorID");
 
-                    b.HasIndex("tblDoctorID")
-                        .IsUnique();
+                    b.HasIndex("tblDoctorID");
 
                     b.ToTable("tblEpisode");
                 });
@@ -162,11 +160,9 @@ namespace EF_DoctorWho.Db.Migrations
 
                     b.HasKey("tblEpisodeCompanionID");
 
-                    b.HasIndex("tblCompanionID")
-                        .IsUnique();
+                    b.HasIndex("tblCompanionID");
 
-                    b.HasIndex("tblEpisodeID")
-                        .IsUnique();
+                    b.HasIndex("tblEpisodeID");
 
                     b.ToTable("tblEpisodeCompanion");
                 });
@@ -186,41 +182,43 @@ namespace EF_DoctorWho.Db.Migrations
 
                     b.HasKey("tblEpisodeEnemyID");
 
-                    b.HasIndex("tblEnemyID")
-                        .IsUnique();
+                    b.HasIndex("tblEnemyID");
 
-                    b.HasIndex("tblEpisodeID")
-                        .IsUnique();
+                    b.HasIndex("tblEpisodeID");
 
                     b.ToTable("tblEpisodeEnemy");
                 });
 
             modelBuilder.Entity("EF_DoctorWho.Db.tblEpisode", b =>
                 {
-                    b.HasOne("EF_DoctorWho.Db.tblAuthor", null)
-                        .WithOne("Episode")
-                        .HasForeignKey("EF_DoctorWho.Db.tblEpisode", "tblAuthorID")
+                    b.HasOne("EF_DoctorWho.Db.tblAuthor", "tblAuthor")
+                        .WithMany("Episode")
+                        .HasForeignKey("tblAuthorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EF_DoctorWho.Db.tblDoctor", null)
-                        .WithOne("Episode")
-                        .HasForeignKey("EF_DoctorWho.Db.tblEpisode", "tblDoctorID")
+                    b.HasOne("EF_DoctorWho.Db.tblDoctor", "tblDoctor")
+                        .WithMany("Episode")
+                        .HasForeignKey("tblDoctorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("tblAuthor");
+
+                    b.Navigation("tblDoctor");
                 });
 
             modelBuilder.Entity("EF_DoctorWho.Db.tblEpisodeCompanion", b =>
                 {
                     b.HasOne("EF_DoctorWho.Db.tblCompanion", null)
-                        .WithOne("EpisodeCompanion")
-                        .HasForeignKey("EF_DoctorWho.Db.tblEpisodeCompanion", "tblCompanionID")
+                        .WithMany("EpisodeCompanion")
+                        .HasForeignKey("tblCompanionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EF_DoctorWho.Db.tblEpisode", null)
-                        .WithOne("EpisodeCompanion")
-                        .HasForeignKey("EF_DoctorWho.Db.tblEpisodeCompanion", "tblEpisodeID")
+                        .WithMany("EpisodeCompanion")
+                        .HasForeignKey("tblEpisodeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -228,14 +226,14 @@ namespace EF_DoctorWho.Db.Migrations
             modelBuilder.Entity("EF_DoctorWho.Db.tblEpisodeEnemy", b =>
                 {
                     b.HasOne("EF_DoctorWho.Db.tblEnemy", null)
-                        .WithOne("EpisodeEnemy")
-                        .HasForeignKey("EF_DoctorWho.Db.tblEpisodeEnemy", "tblEnemyID")
+                        .WithMany("EpisodeEnemy")
+                        .HasForeignKey("tblEnemyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EF_DoctorWho.Db.tblEpisode", null)
-                        .WithOne("EpisodeEnemy")
-                        .HasForeignKey("EF_DoctorWho.Db.tblEpisodeEnemy", "tblEpisodeID")
+                        .WithMany("EpisodeEnemy")
+                        .HasForeignKey("tblEpisodeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

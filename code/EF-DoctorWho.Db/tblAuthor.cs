@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -5,6 +6,10 @@ namespace EF_DoctorWho.Db
 {
     public class tblAuthor
     {
+        public tblAuthor()
+        {
+            Episode = new List<tblEpisode>();
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int tblAutorID { get; set; }
 
@@ -12,7 +17,7 @@ namespace EF_DoctorWho.Db
         [MaxLength(20)]
         public string AuthorName { get; set; }
 
-        public tblEpisode Episode { get; set; }
+        public List<tblEpisode> Episode { get; set; }
 
 
     }

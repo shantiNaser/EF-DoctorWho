@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EF_DoctorWho.Db.Migrations
 {
-    public partial class createAllTables : Migration
+    public partial class CreateAllTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -152,38 +152,32 @@ namespace EF_DoctorWho.Db.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_tblEpisode_tblAuthorID",
                 table: "tblEpisode",
-                column: "tblAuthorID",
-                unique: true);
+                column: "tblAuthorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEpisode_tblDoctorID",
                 table: "tblEpisode",
-                column: "tblDoctorID",
-                unique: true);
+                column: "tblDoctorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEpisodeCompanion_tblCompanionID",
                 table: "tblEpisodeCompanion",
-                column: "tblCompanionID",
-                unique: true);
+                column: "tblCompanionID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEpisodeCompanion_tblEpisodeID",
                 table: "tblEpisodeCompanion",
-                column: "tblEpisodeID",
-                unique: true);
+                column: "tblEpisodeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEpisodeEnemy_tblEnemyID",
                 table: "tblEpisodeEnemy",
-                column: "tblEnemyID",
-                unique: true);
+                column: "tblEnemyID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblEpisodeEnemy_tblEpisodeID",
                 table: "tblEpisodeEnemy",
-                column: "tblEpisodeID",
-                unique: true);
+                column: "tblEpisodeID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

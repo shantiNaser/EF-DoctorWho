@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
+
 namespace EF_DoctorWho.Db
 {
     public class DoctorWhoCoreDbContext : DbContext
@@ -16,6 +17,8 @@ namespace EF_DoctorWho.Db
             optionsBuilder.UseSqlServer
                 ("Server=localhost,1433; Database=DoctorWhoCore;User=sa; Password=NaserSQL123");
         }
+
+
 
     }
 }

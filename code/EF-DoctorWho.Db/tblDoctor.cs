@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,10 @@ namespace EF_DoctorWho.Db
 {
     public class tblDoctor
     {
+        public tblDoctor()
+        {
+            Episode = new List<tblEpisode>();
+        }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int tblDoctorID { get; set; }
@@ -19,6 +24,6 @@ namespace EF_DoctorWho.Db
 
         public DateTime LastEpisodeDate { get; set; }
 
-        public tblEpisode Episode { get; set; }
+        public List<tblEpisode> Episode { get; set; }
     }
 }
