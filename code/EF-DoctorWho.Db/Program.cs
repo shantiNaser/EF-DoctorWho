@@ -372,11 +372,11 @@ namespace EF_DoctorWho.Db
 
         private static void AddCompanionToEpisode(int EpsoideID, string COMName, string WhoPlay)
         {
-            // Prepare a new Enemy ...
+            // Prepare a new Companion ...
             var Com = new tblCompanion { companionName = COMName, WhoPlayed = WhoPlay };
             _context.tblCompanion.Add(Com);
             _context.SaveChanges();
-            // Search for the Epsoide that we need to add Enemy to 
+            // Search for the Epsoide that we need to add Companin to 
             var EPS = _context.tblEpisode.Find(EpsoideID);
             // Add
             EPS.EpisodeCompanion.Add
