@@ -14,9 +14,10 @@ namespace Test.Tests
             _context.Database.EnsureCreated();
             // To make sure that database is existed 
             var Author = new tblAuthor();
+            var ID = Author.tblAutorID;
             _context.tblAuthor.Add(Author);
             _context.SaveChanges();
-            Assert.NotEqual(0, Author.tblAutorID);
+            Assert.NotEqual(ID, Author.tblAutorID);
             // we do not need This Row ... Just for Test
             _context.tblAuthor.Remove(Author);
             _context.SaveChanges();
@@ -29,9 +30,10 @@ namespace Test.Tests
             _context.Database.EnsureCreated();
             // To make sure that database is existed 
             var Enemy = new tblEnemy();
+            var ID = Enemy.tblEnemyId;
             _context.tblEnemy.Add(Enemy);
             _context.SaveChanges();
-            Assert.NotEqual(0, Enemy.tblEnemyId);
+            Assert.NotEqual(ID, Enemy.tblEnemyId);
             // we do not need This Row ... Just for Test
             _context.tblEnemy.Remove(Enemy);
             _context.SaveChanges();
@@ -43,9 +45,10 @@ namespace Test.Tests
             _context.Database.EnsureCreated();
             // To make sure that database is existed 
             var Comp = new tblCompanion();
+            var ID = Comp.tblCompanionID;
             _context.tblCompanion.Add(Comp);
             _context.SaveChanges();
-            Assert.NotEqual(0, Comp.tblCompanionID);
+            Assert.NotEqual(ID, Comp.tblCompanionID);
             // we do not need This Row ... Just for Test
             _context.tblCompanion.Remove(Comp);
             _context.SaveChanges();
@@ -82,7 +85,7 @@ namespace Test.Tests
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.tblEpisode ON");
                 _context.tblEpisode.Add(Eps);
                 _context.SaveChanges();
-                Assert.NotEqual(0, Eps.tblEpisodeID);
+                Assert.Equal(number + 1, Eps.tblEpisodeID);
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.tblEpisode OFF");
             }
             finally
@@ -113,7 +116,7 @@ namespace Test.Tests
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.tblEpisodeCompanion ON");
                 _context.tblEpisodeCompanion.Add(EpsCom);
                 _context.SaveChanges();
-                Assert.NotEqual(0, EpsCom.tblEpisodeCompanionID);
+                Assert.Equal(number + 1, EpsCom.tblEpisodeCompanionID);
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.tblEpisodeCompanion OFF");
             }
             finally
@@ -144,7 +147,7 @@ namespace Test.Tests
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.tblEpisodeEnemy ON");
                 _context.tblEpisodeEnemy.Add(EpsEnm);
                 _context.SaveChanges();
-                Assert.NotEqual(0, EpsEnm.tblEpisodeEnemyID);
+                Assert.Equal(number + 1, EpsEnm.tblEpisodeEnemyID);
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.tblEpisodeEnemy OFF");
             }
             finally

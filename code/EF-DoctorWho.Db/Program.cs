@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EF_DoctorWho.Db
@@ -8,7 +9,10 @@ namespace EF_DoctorWho.Db
         private static DoctorWhoCoreDbContext _context = new DoctorWhoCoreDbContext();
         static void Main(string[] args)
         {
-            PrepraeTable();
+            // PrepraeTable();
+            // PrintEpsiodeViewData();
+
+
         }
 
         private static void PrepraeTable()
@@ -22,7 +26,6 @@ namespace EF_DoctorWho.Db
             InsertDataInEpisodeEnemyTable();
 
         }
-
         private static void InsertDataInAuthorTable()
         {
             var Author1 = new tblAuthor { AuthorName = "Naser" };
@@ -33,7 +36,6 @@ namespace EF_DoctorWho.Db
             _context.tblAuthor.AddRange(Author1, Author2, Author3, Author4, Author5);
             _context.SaveChanges();
         }
-
         private static void InsertDataInEnemyTable()
         {
             var Enemy1 = new tblEnemy { EnemyName = "sudqi", Description = "original programmer" };
@@ -44,7 +46,6 @@ namespace EF_DoctorWho.Db
             _context.tblEnemy.AddRange(Enemy1, Enemy2, Enemy3, Enemy4, Enemy5);
             _context.SaveChanges();
         }
-
         private static void InsertDataInCompanionTable()
         {
             var Comp1 = new tblCompanion { companionName = "Naser", WhoPlayed = "Sudqi" };
@@ -55,7 +56,6 @@ namespace EF_DoctorWho.Db
             _context.tblCompanion.AddRange(Comp1, Comp2, Comp3, Comp4, Comp5);
             _context.SaveChanges();
         }
-
         private static void InsertDataInDoctorTable()
         {
             var Dr1 = new tblDoctor
@@ -106,7 +106,6 @@ namespace EF_DoctorWho.Db
             _context.tblDoctor.AddRange(Dr1, Dr2, Dr3, Dr4, Dr5);
             _context.SaveChanges();
         }
-
         private static void InsertDataInEpisodeTable()
         {
             var Eps1 = new tblEpisode
@@ -185,15 +184,158 @@ namespace EF_DoctorWho.Db
             _context.tblEpisodeEnemy.AddRange(EpsEnm1, EpsEnm2, EpsEnm3, EpsEnm4);
             _context.SaveChanges();
         }
-        private static void Delete()
+        private static void PrintEpsiodeViewData()
         {
-            var c = _context.tblEpisode.Where(s => s.tblEpisodeID >= 10).ToList();
-            foreach (var item in c)
+            var Data = _context.viewEpisodes.ToList();
+            foreach (var item in Data)
             {
-                _context.tblEpisode.Remove(item);
+                Console.WriteLine(item.AuthorName + " " + item.DoctorName + " " + item.viewEpisodes + " " + item.Enemies);
             }
+        }
+        private static void AddNewAuthor(string name)
+        {
+            var Author = new tblAuthor { AuthorName = name };
+            _context.tblAuthor.Add(Author);
             _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void UpdateExistingAuthor(int AuthorID, string newName)
+        {
+            var Author = _context.tblAuthor.Find(AuthorID);
+            Author.AuthorName = newName;
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void UpdateExistingAuthor(int AuthorID)
+        {
+            var Author = _context.tblAuthor.Find(AuthorID);
+            _context.tblAuthor.Remove(Author);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void AddNewDoctor(string Drname, int DrNumber, DateTime BD, DateTime FEPS, DateTime LEPS)
+        {
+            var Dr = new tblDoctor
+            {
+                DoctorName = Drname,
+                DoctorNumber = DrNumber,
+                BirthDate = BD,
+                FirstEpisodeDate = FEPS,
+                LastEpisodeDate = LEPS
+
+            };
+            _context.tblDoctor.Add(Dr);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void UpdateExistingDoctor(int DrID, string Drname, int DrNumber, DateTime BD, DateTime FEPS, DateTime LEPS)
+        {
+            var Dr = _context.tblDoctor.Find(DrID);
+            Dr.DoctorName = Drname;
+            Dr.DoctorNumber = DrNumber;
+            Dr.BirthDate = BD;
+            Dr.FirstEpisodeDate = FEPS;
+            Dr.LastEpisodeDate = LEPS;
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void DeleteExistingDoctor(int DrID)
+        {
+            var Dr = _context.tblDoctor.Find(DrID);
+            _context.tblDoctor.Remove(Dr);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void AddNewEnemys(string Name, string Desc)
+        {
+            var Enm = new tblEnemy { EnemyName = Name, Description = Desc };
+            _context.tblEnemy.Add(Enm);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void updateExistingEnemys(int Id, string Name, string Desc)
+        {
+            var Enm = _context.tblEnemy.Find(Id);
+            Enm.EnemyName = Name;
+            Enm.Description = Desc;
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void DeleteExistingEnemys(int ID)
+        {
+            var Enm = _context.tblEnemy.Find(ID);
+            _context.tblEnemy.Remove(Enm);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void AddNewCompanion(string Name, string WhoPlay)
+        {
+            var Com = new tblCompanion { companionName = Name, WhoPlayed = WhoPlay };
+            _context.tblCompanion.Add(Com);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void UpdateExistingCompanion(int id, string Name, string WhoPlay)
+        {
+            var Com = _context.tblCompanion.Find(id);
+            Com.companionName = Name;
+            Com.WhoPlayed = WhoPlay;
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void DeleteExistingCompanion(int id)
+        {
+            var Com = _context.tblCompanion.Find(id);
+            _context.tblCompanion.Remove(Com);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void AddNewEpsoide(int SNumber, int ENumber, string EType, string Title, DateTime EDate, int AuotherID, int DrID, string Note)
+        {
+            var Eps = new tblEpisode
+            {
+                SeriesNumber = SNumber,
+                EpisodeNumber = ENumber,
+                EpisodeType = EType,
+                Title = Title,
+                EpisodeDate = EDate,
+                tblAuthorID = AuotherID,
+                tblDoctorID = DrID,
+                Notes = Note
+            };
+            _context.tblEpisode.Add(Eps);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+
+        }
+        private static void UpdateEpsoide(int EpsoideID, int SNumber, int ENumber, string EType, string Title, DateTime EDate, int AuotherID, int DrID, string Note)
+        {
+            var Eps = _context.tblEpisode.Find(EpsoideID);
+            Eps.SeriesNumber = SNumber;
+            Eps.EpisodeNumber = ENumber;
+            Eps.EpisodeType = EType;
+            Eps.Title = Title;
+            Eps.EpisodeDate = EDate;
+            Eps.tblAuthorID = AuotherID;
+            Eps.tblDoctorID = DrID;
+            Eps.Notes = Note;
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+        }
+        private static void DeleteEPisode(int id)
+        {
+            var EPs = _context.tblEpisode.Find(id);
+            _context.tblEpisode.Remove(EPs);
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
         }
 
+
+        private static void CompanionsFunctionResult(int EpsoideId)
+        {
+            var Name = _context.fnCompanionss.Find(EpsoideId);
+            // var Query = _context.fnCompanionss.Where(s => s.tblEpisodeID == EpsoideId);
+
+        }
     }
 }
