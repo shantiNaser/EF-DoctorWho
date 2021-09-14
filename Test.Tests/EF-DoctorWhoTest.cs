@@ -14,10 +14,10 @@ namespace Test.Tests
             _context.Database.EnsureCreated();
             // To make sure that database is existed 
             var Author = new tblAuthor();
-            var ID = Author.tblAutorID;
             _context.tblAuthor.Add(Author);
             _context.SaveChanges();
-            Assert.NotEqual(ID, Author.tblAutorID);
+            var ID = Author.tblAutorID;
+            Assert.Equal(ID, Author.tblAutorID);
             // we do not need This Row ... Just for Test
             _context.tblAuthor.Remove(Author);
             _context.SaveChanges();
@@ -30,10 +30,10 @@ namespace Test.Tests
             _context.Database.EnsureCreated();
             // To make sure that database is existed 
             var Enemy = new tblEnemy();
-            var ID = Enemy.tblEnemyId;
             _context.tblEnemy.Add(Enemy);
             _context.SaveChanges();
-            Assert.NotEqual(ID, Enemy.tblEnemyId);
+            var ID = Enemy.tblEnemyId;
+            Assert.Equal(ID, Enemy.tblEnemyId);
             // we do not need This Row ... Just for Test
             _context.tblEnemy.Remove(Enemy);
             _context.SaveChanges();
@@ -45,10 +45,10 @@ namespace Test.Tests
             _context.Database.EnsureCreated();
             // To make sure that database is existed 
             var Comp = new tblCompanion();
-            var ID = Comp.tblCompanionID;
             _context.tblCompanion.Add(Comp);
             _context.SaveChanges();
-            Assert.NotEqual(ID, Comp.tblCompanionID);
+            var ID = Comp.tblCompanionID;
+            Assert.Equal(ID, Comp.tblCompanionID);
             // we do not need This Row ... Just for Test
             _context.tblCompanion.Remove(Comp);
             _context.SaveChanges();
@@ -62,7 +62,8 @@ namespace Test.Tests
             var Dr = new tblDoctor();
             _context.tblDoctor.Add(Dr);
             _context.SaveChanges();
-            Assert.NotEqual(0, Dr.tblDoctorID);
+            var ID = Dr.tblDoctorID;
+            Assert.Equal(ID, Dr.tblDoctorID);
             // we do not need This Row ... Just for Test
             _context.tblDoctor.Remove(Dr);
             _context.SaveChanges();
@@ -158,6 +159,7 @@ namespace Test.Tests
                 _context.Database.CloseConnection();
             }
         }
+
     }
 }
 

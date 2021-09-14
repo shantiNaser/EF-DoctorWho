@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_DoctorWho.Db
 {
-    private static DoctorWhoCoreDbContext _context = new DoctorWhoCoreDbContext();
     public class DoctorWhoCoreDbContext : DbContext
     {
         public DbSet<tblEnemy> tblEnemy { get; set; }
