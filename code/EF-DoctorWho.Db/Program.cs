@@ -14,6 +14,13 @@ namespace EF_DoctorWho.Db
             // PrintEpsiodeViewData();
             // CompanionsFunctionResult(2);
             // EnemyFunctionResult(2);
+
+            // PrintAllAvailableDoctor();
+            // SearchEnemyByID(1);
+            // SearchCompanionByID(3);
+            // AddEnemyToEpisode(1, "Ahmad", "Programmer");
+            // AddCompanionToEpisode(3, "Roaa", "Hala");
+
         }
 
         private static void PrepraeTable()
@@ -345,6 +352,60 @@ namespace EF_DoctorWho.Db
                        select _context.EnemiesFunctionResult(EpsoideId);
             System.Console.WriteLine(Name.Take(1).ToList().First());
         }
+
+
+        private static void AddEnemyToEpisode(int EpsoideID, string name, string Des)
+        {
+            // Prepare a new Enemy ...
+            var Enmy = new tblEnemy { EnemyName = name, Description = Des };
+            _context.tblEnemy.Add(Enmy);
+            _context.SaveChanges();
+            // Search for the Epsoide that we need to add Enemy to 
+            var EPS = _context.tblEpisode.Find(EpsoideID);
+            // Add
+            EPS.EpisodeEnemy.Add
+            (new tblEpisodeEnemy { tblEpisodeID = EpsoideID, tblEnemyID = Enmy.tblEnemyId });
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+
+        }
+
+        private static void AddCompanionToEpisode(int EpsoideID, string COMName, string WhoPlay)
+        {
+            // Prepare a new Enemy ...
+            var Com = new tblCompanion { companionName = COMName, WhoPlayed = WhoPlay };
+            _context.tblCompanion.Add(Com);
+            _context.SaveChanges();
+            // Search for the Epsoide that we need to add Enemy to 
+            var EPS = _context.tblEpisode.Find(EpsoideID);
+            // Add
+            EPS.EpisodeCompanion.Add
+            (new tblEpisodeCompanion { tblEpisodeID = EpsoideID, tblCompanionID = Com.tblCompanionID });
+            _context.SaveChanges();
+            System.Console.WriteLine("Process was Done Successfully");
+
+        }
+        public static void PrintAllAvailableDoctor()
+        {
+            var Drs = _context.tblDoctor.FromSqlInterpolated($"select * from tblDoctor").ToList();
+            foreach (var item in Drs)
+            {
+                Console.WriteLine(item.DoctorName);
+            }
+        }
+
+        public static void SearchEnemyByID(int ID)
+        {
+            var Enmy = _context.tblEnemy.Where(s => s.tblEnemyId == ID).ToList();
+            System.Console.WriteLine(Enmy.First().EnemyName);
+        }
+
+        public static void SearchCompanionByID(int ID)
+        {
+            var Com = _context.tblCompanion.Where(C => C.tblCompanionID == ID).ToList();
+            System.Console.WriteLine(Com.First().companionName);
+        }
+
 
 
     }
