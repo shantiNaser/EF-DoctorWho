@@ -14,7 +14,8 @@ namespace EF_DoctorWho.Db
         public DbSet<tblEpisodeCompanion> tblEpisodeCompanion { get; set; }
         public DbSet<tblEpisodeEnemy> tblEpisodeEnemy { get; set; }
         public DbSet<EpisodesView> viewEpisodes { get; set; }
-        public DbSet<CompanionsFunction> fnCompanionss { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,7 +24,10 @@ namespace EF_DoctorWho.Db
         }
 
 
-        public int CompanionsFunctionResult(int customerId)
+        public string CompanionsFunctionResult(int customerId)
+                => throw new NotSupportedException();
+
+        public string EnemiesFunctionResult(int customerId)
                 => throw new NotSupportedException();
 
 
@@ -34,9 +38,13 @@ namespace EF_DoctorWho.Db
                         .HasNoKey()
                         .ToView("viewEpisodes");
 
-            modelBuilder.Entity<CompanionsFunction>()
-                        .HasNoKey()
-                        .ToFunction("fnCompanions");
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext)
+                        .GetMethod(nameof(CompanionsFunctionResult), new[] { typeof(int) }))
+                        .HasName("fnCompanions");
+
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext)
+                        .GetMethod(nameof(EnemiesFunctionResult), new[] { typeof(int) }))
+                        .HasName("fnEnemies");
 
 
         }

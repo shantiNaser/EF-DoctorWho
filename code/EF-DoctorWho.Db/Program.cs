@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace EF_DoctorWho.Db
 {
@@ -11,8 +12,8 @@ namespace EF_DoctorWho.Db
         {
             // PrepraeTable();
             // PrintEpsiodeViewData();
-
-
+            // CompanionsFunctionResult(2);
+            // EnemyFunctionResult(2);
         }
 
         private static void PrepraeTable()
@@ -329,13 +330,22 @@ namespace EF_DoctorWho.Db
             _context.SaveChanges();
             System.Console.WriteLine("Process was Done Successfully");
         }
-
-
         private static void CompanionsFunctionResult(int EpsoideId)
         {
-            var Name = _context.fnCompanionss.Find(EpsoideId);
-            // var Query = _context.fnCompanionss.Where(s => s.tblEpisodeID == EpsoideId);
-
+            var Name = from C in _context.tblCompanion
+                       join EC in _context.tblEpisodeCompanion on C.tblCompanionID equals EC.tblCompanionID
+                       select _context.CompanionsFunctionResult(EpsoideId);
+            System.Console.WriteLine(Name.Take(1).ToList().First());
         }
+
+        private static void EnemyFunctionResult(int EpsoideId)
+        {
+            var Name = from E in _context.tblEnemy
+                       join EE in _context.tblEpisodeEnemy on E.tblEnemyId equals EE.tblEnemyID
+                       select _context.EnemiesFunctionResult(EpsoideId);
+            System.Console.WriteLine(Name.Take(1).ToList().First());
+        }
+
+
     }
 }
