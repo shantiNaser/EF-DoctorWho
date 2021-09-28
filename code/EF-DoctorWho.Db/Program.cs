@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +11,7 @@ namespace EF_DoctorWho.Db
         static void Main(string[] args)
         {
             // PrepraeTable();
+
 
         }
 
@@ -25,6 +26,7 @@ namespace EF_DoctorWho.Db
             InsertDataInEpisodeEnemyTable();
 
         }
+
         private static void InsertDataInAuthorTable()
         {
             var Author1 = new tblAuthor { AuthorName = "Naser" };
